@@ -17,7 +17,7 @@
   "devDependencies": {},
   "scripts": {
     "server": "nodemon ./dist/app.js",
-    "client": "npm run start --prefix client",
+    "client": "npm run start --prefix ../client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],

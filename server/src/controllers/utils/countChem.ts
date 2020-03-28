@@ -19,7 +19,6 @@ export const countChem = (arrToCount: string[]): object => {
     }
 
     for (const itr of arrToCount) objToReturn[itr]++
-    console.log(objToReturn);
 
     return objToReturn
 }

@@ -1,0 +1,95 @@
+$slidersBG: #333;
+$respsBG: #222;
+$sliderOne: lighten(#77c104, 10);
+$sliderTwo: lighten(#d26e05, 10);
+$sliderThree: lighten(#b20450, 10);
+$countVal: #00ffff;
+
+@mixin sliderCont($color) {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  .slider{
+    flex: 10;
+    margin-right: 1rem;
+  }
+  .span{
+    color: $color;
+    flex: 1;
+  }
+}
+
+.App {
+  min-height: 100vh;
+  color: #ffffff;
+  display: flex;
+}
+.sidebar{
+  flex: 1.5 ;
+  display: flex;
+  flex-direction: column;
+
+  .sliders{
+    background: $slidersBG;
+    flex: 4;
+    padding: 3rem;
+    .sliderOne{
+      color: $sliderOne;
+    }
+    .sliderTwo{
+      color: $sliderTwo;
+    }
+    .sliderThree{
+      color: $sliderThree;
+    }
+
+    .sliderContOne{
+      @include sliderCont($sliderOne)
+    }
+    .sliderContTwo{
+      @include sliderCont($sliderTwo)
+    }
+    .sliderContThree{
+      @include sliderCont($sliderThree)
+    }
+    .buttonCont{
+      margin-top: 5rem;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .resps{
+    flex: 6;
+    background: $respsBG;
+    padding: 3rem;
+    color: $countVal;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    display: flex;
+    
+    .respList{
+      display: flex;
+      flex-direction: column;
+      margin-right: 2rem;
+      div{
+        padding: 0.1rem 0rem;
+      }
+    }
+    .respVal{
+      font-weight: bold;
+      div{
+        padding: 0.1rem 0rem;
+      }
+    }
+    .respSpinn{
+      color: $countVal;
+      margin-top: 25%;
+      margin-left: 40%;
+    }
+  }
+}
+.chart{
+  background: #444444;
+  flex: 5;
+}

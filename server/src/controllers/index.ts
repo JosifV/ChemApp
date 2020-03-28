@@ -2,32 +2,24 @@ import { RequestHandler } from "express";
 import { Chem } from "../models";
 import { ChemSchema, vetoAny } from "../types";
 import { shufleArr } from "./utils/shufleArr";
-import { seeder } from "./utils/seeder";
+// import { seeder } from "./utils/seeder";
 import { makeChem } from "./utils/makeChem";
 import { countChem } from "./utils/countChem";
-
-// let chems: string[] = makeChem(shufleArr(seeder()))
-// countChem(chems)
 
 let getHandler: RequestHandler = async (req, res) => { //*
     let resp = await Chem.find({})
 
-    res.status(200).send([resp, countChem(resp as vetoAny)]) //*  [resp jedinjenja, i zbir jedinjenja]
+    res.status(200).send(resp) //*  [resp jedinjenja, i zbir jedinjenja]
 }
-let postHandler: RequestHandler = async (req, res) => {
+let postHandler: RequestHandler = async (req, res) => { //*
     //* nabavi input arr sa clienta 
     let inputArr: string[] = req.body.inputArr
-
-    //* treba ovako da izgleda
-    // {
-    //     "inputArr":["a", "b"]
-    // }
 
     //* napravi output arr na serveru
     let outputArr: string[] = makeChem(shufleArr(inputArr))
 
-    let resp: vetoAny = await Chem.create({ inputArr, outputArr })
-
+    let resp: vetoAny = await Chem.create({ inputArr, outputArr, elCount:countChem(outputArr) })
+    
     res.status(201).send(resp)
 }
 const patchHandler: RequestHandler = async (req, res, next) => { //*
