@@ -93,3 +93,25 @@ $countVal: #00ffff;
   background: #444444;
   flex: 5;
 }
+//* Plot override
+.main-svg{
+  background-color: hsla(0, 0%, 41%, 0) !important;
+}
+.legend{
+  .bg{
+    fill: #333 !important;
+  }
+  .legendtext {
+    fill: white !important;
+  }
+}
+// .yaxislayer-above{
+//   fill: white !important;
+
+// }
+.xtick, .ytick{
+  text{
+    fill: white !important;
+  }
+
+}

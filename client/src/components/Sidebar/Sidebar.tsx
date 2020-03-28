@@ -3,6 +3,8 @@ import { vetoAny } from "../types";
 import Resps from './Resps'
 import Sliders from "./Sliders";
 import axios from 'axios'
+import Plotly from "plotly.js";
+import { drawChart } from "./utils/drawAchart";
 
 const Sidebar: React.FC = () => {
     let [elCount, elCountSet] = useState({}) as vetoAny
@@ -22,6 +24,8 @@ const Sidebar: React.FC = () => {
         }
         localReq()
     }, [])
+    
+    drawChart(document.getElementById('mainPlot') !== null)
 
     return <div className="sidebar">
         <Sliders setCount={elCountSet} setUpd={isUpdSet}/>

@@ -1,4 +1,4 @@
-import React, { Fragment} from "react";
+import React, { Fragment } from "react";
 import { vetoAny } from "../types";
 import Spinner from '../Spinner/Spinner'
 
@@ -9,6 +9,7 @@ interface LocalProps {
 }
 
 const Resps: React.FC<LocalProps> = (props) => {
+
     return <Fragment>
         {
             props.updBool ? <div className="resps">
