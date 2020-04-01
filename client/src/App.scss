@@ -1,5 +1,9 @@
 $slidersBG: #333;
 $respsBG: #222;
+$chartBG: #444;
+$chartStuffBG: #333;
+$white:#fff;
+$transparent: hsla(0, 0%, 41%, 0);
 $sliderOne: lighten(#77c104, 10);
 $sliderTwo: lighten(#d26e05, 10);
 $sliderThree: lighten(#b20450, 10);
@@ -21,7 +25,7 @@ $countVal: #00ffff;
 
 .App {
   min-height: 100vh;
-  color: #ffffff;
+  color: $white;
   display: flex;
 }
 .sidebar{
@@ -90,28 +94,43 @@ $countVal: #00ffff;
   }
 }
 .chart{
-  background: #444444;
+  background: $chartBG;
   flex: 5;
 }
 //* Plot override
 .main-svg{
-  background-color: hsla(0, 0%, 41%, 0) !important;
+  background-color: $transparent !important;
 }
 .legend{
   .bg{
-    fill: #333 !important;
+    fill: $chartStuffBG !important;
   }
   .legendtext {
-    fill: white !important;
+    fill: $white !important;
   }
 }
-// .yaxislayer-above{
-//   fill: white !important;
-
-// }
 .xtick, .ytick{
   text{
-    fill: white !important;
+    fill: $white !important;
   }
-
 }
+.hovertext{
+  rect{
+    fill: $chartStuffBG !important;
+  }
+  path{
+    stroke: none !important;
+  }
+}
+.svg-container{
+  height: 85vh !important;
+  margin-top: 5vh;
+  margin-bottom: 10vh;
+  .main-svg{
+  height: 100% !important;
+  .cartesianlayer{
+  height: 100% !important;
+  }
+  }
+}
+

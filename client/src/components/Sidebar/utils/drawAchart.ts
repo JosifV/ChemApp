@@ -1,14 +1,13 @@
 import Plotly from "plotly.js";
-import { vetoAny } from "../../types";
+import { vetoAny, ElementObjectClass, TrimLayout, PostRespFE } from "../../types";
 
-export const drawChart = (IsIt: boolean) => {
+export const drawChart = (IsIt: boolean, respData: PostRespFE[]) => {
   if (IsIt) {
-    let trimedLayout: object = {
+    let trimedLayout: TrimLayout = {
       showgrid: false,
       zeroline: false,
       showline: false,
       ticks: '',
-      // showticklabels: false,
       autosize: true,
       fixedrange: true,
     };
@@ -20,31 +19,54 @@ export const drawChart = (IsIt: boolean) => {
         ...trimedLayout,
       }
     }
-    let config = {
-      staticPlot: true
-    }
+
     //* ostaje dinamicki prikaz jedinjenja da se uradi ovde
-    //* trebace elCount SVAKE stavke iz data baze, jer svaka stavka ce biti jedna istorijska tacka
-    let trace1 = {
-      x: [1, 2, 3, 4],
-      y: [10, 15, 13, 17],
-      type: 'scatter'
-    };
+    class ChartEl {
+      public type: string = 'scatter'
+      public name: string = ''
+      public x: number[] = [];
+      public y: number[] = [];
+      constructor(x: number[], y: number[], name: string) {
+      }
+    }
 
-    let trace2 = {
-      x: [1, 2, 3, 4],
-      y: [16, 5, 11, 9],
-      type: 'scatter'
-    };
+    let elHistObj: ElementObjectClass = {
+      H2O2: new ChartEl([], [], ''),
+      H2O: new ChartEl([], [], ''),
+      H2CO3: new ChartEl([], [], ''),
+      H2: new ChartEl([], [], ''),
+      CH3COOH: new ChartEl([], [], ''),
+      C2H6: new ChartEl([], [], ''),
+      CO2: new ChartEl([], [], ''),
+      CO: new ChartEl([], [], ''),
+      O3: new ChartEl([], [], ''),
+      O2: new ChartEl([], [], ''),
+    }
 
-    let trace3 = {
-      x: [1, 2, 3, 4],
-      y: [16, 5, 11, 9],
-      type: 'scatter'
-    };
+    let counter: number = -1
+    
+    for (const itr of respData) {
+      counter++
+      for (const elKey in itr.elCount) {
+        let x: number = counter
+        let y: number = itr.elCount[elKey];
 
-    let data = [trace1, trace2, trace3];
+        elHistObj[`${elKey}`].x.push(x)
+        elHistObj[`${elKey}`].y.push(y)
+        elHistObj[`${elKey}`].name = `${elKey}`
+      }
+    }
 
-    Plotly.newPlot('mainPlot', data as vetoAny, layout, config);
+    let plotData: vetoAny[] = []
+    for (const [key, val] of Object.entries(elHistObj)) {
+      const objToDefine = {};
+      Object.defineProperty(objToDefine, `${key}`, {
+        value: val,
+        writable: false
+      });
+      plotData.push(val)
+    }
+
+    Plotly.newPlot('mainPlot', plotData, layout);
   }
 }

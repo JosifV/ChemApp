@@ -3,35 +3,29 @@ import { vetoAny } from "../types";
 import Resps from './Resps'
 import Sliders from "./Sliders";
 import axios from 'axios'
-import Plotly from "plotly.js";
 import { drawChart } from "./utils/drawAchart";
 
 const Sidebar: React.FC = () => {
     let [elCount, elCountSet] = useState({}) as vetoAny
     let [isUpd, isUpdSet] = useState(false)
+    let [fullResp, fullRespSet] = useState({}) as vetoAny
 
     let showCountHandler = () => Object.entries(elCount).map((x, xIndex) => <div key={`0_${xIndex}`}> {x[0]}: </div>)
-    let valCountHandler = () => Object.entries(elCount).map((x, xIndex) => {
-        console.log(x[1]);
-        
-        return <div key={`1_${xIndex}`}> {x[1]} </div>
-    })
+    let valCountHandler = () => Object.entries(elCount).map((x, xIndex) => <div key={`1_${xIndex}`}> {x[1]} </div>)
 
     useEffect(() => {
-        //* axios
         let localReq = async () => {
-            let resp = await axios.get('/chem/')
-            console.log(resp);
+            let { data } = await axios.get('/chem/')
+            fullRespSet(data)
 
-            //* updatuj zbir svih jedinjenja 
-            if (resp.data[resp.data.length - 1]) elCountSet(resp.data[resp.data.length - 1].elCount);
+            //* update sum of compounds
+            if (data[data.length - 1]) elCountSet(data[data.length - 1].elCount);
             else elCountSet({})
             isUpdSet(true)
         }
         localReq()
-    }, [])
-
-    drawChart(document.getElementById('mainPlot') !== null)
+    }, [isUpd]) 
+    drawChart(document.getElementById('mainPlot') !== null, fullResp)
 
     return <div className="sidebar">
         <Sliders setCount={elCountSet} setUpd={isUpdSet} />
