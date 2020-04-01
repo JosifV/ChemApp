@@ -9,4 +9,3 @@ const ChemShcema = new Schema({
 })
 
 export const Chem = mongoose.model('chem', ChemShcema)
- 
