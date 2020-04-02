@@ -41,19 +41,26 @@ export const drawChart = (IsIt: boolean, respData: PostRespFE[]) => {
       CO: new ChartEl([], [], ''),
       O3: new ChartEl([], [], ''),
       O2: new ChartEl([], [], ''),
+      C2H5OH: new ChartEl([], [], ''),
+      CH4: new ChartEl([], [], ''),
+      CH3OH: new ChartEl([], [], ''),
+      CH3COO: new ChartEl([], [], ''),
+      OH: new ChartEl([], [], '')
     }
 
     let counter: number = -1
-    
+
     for (const itr of respData) {
       counter++
       for (const elKey in itr.elCount) {
         let x: number = counter
         let y: number = itr.elCount[elKey];
 
-        elHistObj[`${elKey}`].x.push(x)
-        elHistObj[`${elKey}`].y.push(y)
-        elHistObj[`${elKey}`].name = `${elKey}`
+        if (elHistObj[`${elKey}`]) {
+          elHistObj[`${elKey}`].x.push(x)
+          elHistObj[`${elKey}`].y.push(y)
+          elHistObj[`${elKey}`].name = `${elKey}`
+        }
       }
     }
 

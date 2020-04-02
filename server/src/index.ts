@@ -7,19 +7,19 @@ const app = express()
 const PORT = process.env.PORT || 5000
 const log = console.log
 
-//* mongo konekcija
+//* mongo connection
 mongoose.connect(MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}, (err)=>{
     if (err) log(`Error in connection >>> ${err}`) 
     else log(`DB connection successful`)
 })
 
-//* body parser koji skuplja sav json http zahteva i stavi ga u req.body
+//* body parser
 app.use(json())
 
-//* routeri
+//* router
 app.use('/chem', router)
 
-//* i na kraju error handling page
+//* error handling page
 app.use((err: Error, req: Request, res:Response)=> res.status(500).send({message:err.message}))
 
 app.listen(PORT)

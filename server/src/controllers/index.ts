@@ -7,7 +7,7 @@ import { countChem } from "./utils/countChem";
 
 let getHandler: RequestHandler = async (req, res) => { //*
     let resp = await Chem.find({})
-    res.status(200).send(resp) 
+    res.status(200).send(resp)
 }
 let postHandler: RequestHandler = async (req, res) => { //*
     //* get input arr
@@ -16,41 +16,29 @@ let postHandler: RequestHandler = async (req, res) => { //*
     //* make output arr
     let outputArr: string[] = makeChem(shufleArr(inputArr))
 
-    let resp: PostResp = await Chem.create({ inputArr, outputArr, elCount:countChem(outputArr) }) 
-    
+    let resp: PostResp = await Chem.create({ inputArr, outputArr, elCount: countChem(outputArr) })
+
     res.status(201).send(resp)
 }
-/* const patchHandler: RequestHandler = async (req, res, next) => { //*
-    let patchId: string = req.params.chem_id
+//  const patchHandler: RequestHandler = async (req, res, next) => { //* wont do
+//     let patchId: string = req.params.chem_id
 
-    let { inputArr }: vetoAny = await Chem.findById(patchId)
-    inputArr = shufleArr(inputArr)
-    let newChemObj: ChemSchema = {
-        inputArr, //* promesani stari inputarr
-        outputArr: makeChem(inputArr) //* arr nakon opet primenjene funkcije
-    }
-    let resp: Partial<ChemSchema> = {}
-    await Chem.findByIdAndUpdate(patchId, newChemObj, { new: true }, (err: Error, chem: vetoAny) => {
-        if (err) return next(err.message)
-        resp = chem
-    })
-    res.send(resp)
-} */
-// const delHandler: RequestHandler = async (req, res, next) => { //*
-//     let delId = req.params.chem_id
-
-//     //* delete upit ka db
-//     let resp: vetoAny = {}
-//     await Chem.findByIdAndDelete(delId, (err: Error, delVal: vetoAny) => {
+//     let { inputArr }: vetoAny = await Chem.findById(patchId)
+//     inputArr = shufleArr(inputArr)
+//     let newChemObj: ChemSchema = {
+//         inputArr, //* shufle old arr
+//         outputArr: makeChem(inputArr) //* make chems out of shufled arr
+//     }
+//     let resp: Partial<ChemSchema> = {}
+//     await Chem.findByIdAndUpdate(patchId, newChemObj, { new: true }, (err: Error, chem: vetoAny) => {
 //         if (err) return next(err.message)
-//         resp = delVal
+//         resp = chem
 //     })
 //     res.send(resp)
-// }
+// } 
 
 export const controlerFuncs = {
     getHandler,
     postHandler,
     // patchHandler,
-    // delHandler
 }
