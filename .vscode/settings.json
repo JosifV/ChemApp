@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/d3cacaca-3617-4e72-9fc5-cb64c5a093ab/resourceGroups/msftlearn-core-infrastructure-rg/providers/Microsoft.Web/sites/wajogi1987",
+    "appService.deploySubpath": "."
+}
